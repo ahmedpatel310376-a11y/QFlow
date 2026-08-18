@@ -1,40 +1,33 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import type { ReactElement } from 'react'
+import { lazy, Suspense, type ReactElement } from 'react'
 import { ToastProvider } from './context/ToastContext'
 import { ToastContainer } from './components/common/Toast'
 
-// Auth pages
-import Login from './pages/auth/Login'
-import Register from './pages/auth/Register'
-
-// Public pages
-import Landing from './pages/public/Landing'
-
-// User pages
-import UserDashboard from './pages/user/Dashboard'
-import FindServices from './pages/user/FindServices'
-import OrganizationDetail from './pages/user/OrganizationDetail'
-import JoinQueue from './pages/user/JoinQueue'
-import LiveQueue from './pages/user/LiveQueue'
-import Appointments from './pages/user/Appointments'
-import BookAppointment from './pages/user/BookAppointment'
-import Notifications from './pages/user/Notifications'
-import History from './pages/user/History'
-import Profile from './pages/user/Profile'
-import Settings from './pages/user/Settings'
-
-// Admin pages
-import AdminDashboard from './pages/admin/Dashboard'
-import LiveQueues from './pages/admin/LiveQueues'
-import Counters from './pages/admin/Counters'
-import AdminAppointments from './pages/admin/Appointments'
-import Services from './pages/admin/Services'
-import CrowdMonitoring from './pages/admin/CrowdMonitoring'
-import AIInsights from './pages/admin/AIInsights'
-import Analytics from './pages/admin/Analytics'
-import Staff from './pages/admin/Staff'
-import Customers from './pages/admin/Customers'
-import AdminSettings from './pages/admin/Settings'
+const Login = lazy(() => import('./pages/auth/Login'))
+const Register = lazy(() => import('./pages/auth/Register'))
+const Landing = lazy(() => import('./pages/public/Landing'))
+const UserDashboard = lazy(() => import('./pages/user/Dashboard'))
+const FindServices = lazy(() => import('./pages/user/FindServices'))
+const OrganizationDetail = lazy(() => import('./pages/user/OrganizationDetail'))
+const JoinQueue = lazy(() => import('./pages/user/JoinQueue'))
+const LiveQueue = lazy(() => import('./pages/user/LiveQueue'))
+const Appointments = lazy(() => import('./pages/user/Appointments'))
+const BookAppointment = lazy(() => import('./pages/user/BookAppointment'))
+const Notifications = lazy(() => import('./pages/user/Notifications'))
+const History = lazy(() => import('./pages/user/History'))
+const Profile = lazy(() => import('./pages/user/Profile'))
+const Settings = lazy(() => import('./pages/user/Settings'))
+const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'))
+const LiveQueues = lazy(() => import('./pages/admin/LiveQueues'))
+const Counters = lazy(() => import('./pages/admin/Counters'))
+const AdminAppointments = lazy(() => import('./pages/admin/Appointments'))
+const Services = lazy(() => import('./pages/admin/Services'))
+const CrowdMonitoring = lazy(() => import('./pages/admin/CrowdMonitoring'))
+const AIInsights = lazy(() => import('./pages/admin/AIInsights'))
+const Analytics = lazy(() => import('./pages/admin/Analytics'))
+const Staff = lazy(() => import('./pages/admin/Staff'))
+const Customers = lazy(() => import('./pages/admin/Customers'))
+const AdminSettings = lazy(() => import('./pages/admin/Settings'))
 
 // Layouts
 import { PublicLayout, UserLayout, AdminLayout } from './layouts'
@@ -59,6 +52,7 @@ function App() {
   return (
     <ToastProvider>
       <BrowserRouter>
+        <Suspense fallback={<div className="grid min-h-screen place-items-center bg-[#f6f7fb]"><div className="text-center"><div className="mx-auto h-11 w-11 animate-spin rounded-2xl border-4 border-indigo-100 border-t-indigo-600"/><p className="mt-4 text-sm font-bold text-slate-500">Loading your QFlow workspace…</p></div></div>}>
         <Routes>
           {/* Public routes */}
           <Route element={<PublicLayout />}>
@@ -101,6 +95,7 @@ function App() {
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        </Suspense>
         <ToastContainer />
       </BrowserRouter>
     </ToastProvider>
