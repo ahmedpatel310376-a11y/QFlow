@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "QFlow API",
+    "_postman_id": "qflow-demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "queueId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/health"
+      }
+    },
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"Abrar\",\"email\":\"abrar@example.com\",\"password\":\"123456\"}"
+        },
+        "url": "{{baseUrl}}/api/auth/register"
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"admin@qflow.com\",\"password\":\"admin123\"}"
+        },
+        "url": "{{baseUrl}}/api/auth/login"
+      }
+    },
+    {
+      "name": "List Queues",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/queues"
+      }
+    },
+    {
+      "name": "Crowd",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/queues/{{queueId}}/crowd"
+      }
+    },
+    {
+      "name": "AI Wait Prediction",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"queueLength\":20,\"activeCounters\":3,\"averageServiceMinutes\":5,\"crowdLevel\":60}"
+        },
+        "url": "{{baseUrl}}/api/queues/{{queueId}}/predict-wait"
+      }
+    }
+  ]
+}
